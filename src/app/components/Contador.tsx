@@ -15,6 +15,14 @@ export const Contador = () => {
     console.log("Componente Contador atualizado:", contador);
   }, [contador]);
 
+     useEffect(() => {
+    console.log("Componente Coisa atualizado:", coisa);
+  }, [coisa]);
+
+  useEffect(() => {
+    console.log("Componente Contador ou Coisa atualizado:");
+  }, [contador, coisa]);
+
   return (
     <div className="grid gap-y-4 border border-gray-300 p-4 rounded">
       <div>
