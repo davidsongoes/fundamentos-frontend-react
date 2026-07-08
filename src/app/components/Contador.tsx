@@ -11,17 +11,32 @@ export const Contador = () => {
     console.log("Componente Contador renderizado:");
   }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     console.log("Componente Contador atualizado:", contador);
   }, [contador]);
 
-     useEffect(() => {
+  useEffect(() => {
     console.log("Componente Coisa atualizado:", coisa);
   }, [coisa]);
 
   useEffect(() => {
     console.log("Componente Contador ou Coisa atualizado:");
   }, [contador, coisa]);
+
+  useEffect(() => {
+    const contadorSessionStorage = localStorage.getItem("contador") ?? 0;
+    if (contadorSessionStorage !== null && contadorSessionStorage !== "null") {
+      setContador(+contadorSessionStorage);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "contador",
+      contador !== null ? contador.toString() : "null",
+    );
+    console.log("Contador atualizado:", contador);
+  }, [contador]);
 
   return (
     <div className="grid gap-y-4 border border-gray-300 p-4 rounded">
@@ -75,7 +90,14 @@ export const Contador = () => {
         </ButtonGreen>
       </div>
       <div className="mt-4">
-         <p>Coisa: {coisa ? coisa : <span className="text-gray-500">Nenhuma coisa definida</span>}</p>
+        <p>
+          Coisa:{" "}
+          {coisa ? (
+            coisa
+          ) : (
+            <span className="text-gray-500">Nenhuma coisa definida</span>
+          )}
+        </p>
       </div>
       <div className="flex">
         <input
@@ -92,9 +114,7 @@ export const Contador = () => {
         >
           Limpar
         </button>
-       
       </div>
-      
     </div>
   );
 };
