@@ -4,12 +4,15 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useEffect,
   useState,
 } from "react";
 
+type ContadorType = number | null;
+
 type ContadorContextType = {
-  contador: number;
-  setContador: Dispatch<SetStateAction<number>>;
+  contador: ContadorType;
+  setContador: Dispatch<SetStateAction<ContadorType>>;
 };
 
 export const ContadorContext = createContext<ContadorContextType>({
@@ -22,7 +25,22 @@ export default function ContadorProvider({
 }: {
   children: ReactNode;
 }) {
-  const [contador, setContador] = useState(0);
+  const [contador, setContador] = useState<ContadorType>(null);
+
+  useEffect(() => {
+    const contadorSessionStorage = sessionStorage.getItem("contador") ?? 0;
+    if (contadorSessionStorage !== null && contadorSessionStorage !== "null") {
+      setContador(+contadorSessionStorage);
+    }
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem(
+      "contador",
+      contador !== null ? contador.toString() : "null",
+    );
+    console.log("Contador atualizado:", contador);
+  }, [contador]);
 
   return (
     <ContadorContext.Provider value={{ contador, setContador }}>

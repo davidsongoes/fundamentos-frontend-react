@@ -17,15 +17,15 @@ export const ContadorGlobal = () => {
       <div className="flex gap-2">
         <ButtonBlue
           onClick={() => {
-            setContador(contador + 1);
+            setContador(contador !== null ? contador + 1 : 1);
           }}
         >
           +1
         </ButtonBlue>
-        {contador > 0 && (
+        {contador !== null && contador > 0 && (
           <ButtonBlue
             onClick={() => {
-              setContador(contador - 1);
+              setContador(contador !== null ? contador - 1 : null);
             }}
           >
             -1
@@ -35,15 +35,15 @@ export const ContadorGlobal = () => {
       <div className="flex gap-2 mt-1">
         <ButtonBlue
           onClick={() => {
-            setContador((c) => c + 3);
+            setContador((c) => (c !== null ? c + 3 : 3));
           }}
         >
           +3
         </ButtonBlue>
-        {contador > 2 && (
+        {contador !== null && contador > 2 && (
           <ButtonBlue
             onClick={() => {
-              setContador((c) => c - 3);
+              setContador((c) => (c !== null ? c - 3 : null));
             }}
           >
             -3

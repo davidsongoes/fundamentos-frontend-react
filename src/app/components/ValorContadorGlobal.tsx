@@ -12,7 +12,7 @@ export const ValorContadorGlobal = () => {
     <div className="grid gap-y-4 border border-gray-300 p-4 rounded">
       <div>
         <h2 className="text-2xl">Contador</h2>
-        <p>Valor do meu contador global: {contador}</p>
+        <p>Valor do meu contador global: {contador !== null ? contador : ""}</p>
       </div>
     </div>
   );
